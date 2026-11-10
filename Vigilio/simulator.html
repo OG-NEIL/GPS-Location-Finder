@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GPS Simulator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 20px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>GPS Tracker Simulator</h1>
+
+    <label>Latitude</label>
+    <input
+        id="latitude"
+        type="number"
+        step="any"
+        placeholder="Enter latitude"
+    >
+
+    <label>Longitude</label>
+    <input
+        id="longitude"
+        type="number"
+        step="any"
+        placeholder="Enter longitude"
+    >
+
+    <button onclick="sendLocation()">
+        Send GPS Location
+    </button>
+
+    <div id="result">
+        Waiting for GPS data...
+    </div>
+
+    <script src="simulator.js"></script>
+
+</body>
+</html>

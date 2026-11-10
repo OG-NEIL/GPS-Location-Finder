@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPS Simulator</title>
+</head>
+
+<body>
+
+    <h1>GPS Tracker Simulator</h1>
+
+    <label>Latitude:</label>
+    <input type="number" id="latitude" step="any" value="4.8156">
+
+    <br><br>
+
+    <label>Longitude:</label>
+    <input type="number" id="longitude" step="any" value="7.0498">
+
+    <br><br>
+
+    <button onclick="sendGPSLocation()">
+        Send GPS Location
+    </button>
+
+    <h2>GPS Information</h2>
+
+    <p>
+        Latitude:
+        <span id="displayLatitude">---</span>
+    </p>
+
+    <p>
+        Longitude:
+        <span id="displayLongitude">---</span>
+    </p>
+
+    <p>
+        Address:
+        <span id="address">---</span>
+    </p>
+
+
+    <script>
+
+        async function sendGPSLocation() {
+
+            const latitude =
+                document.getElementById("latitude").value;
+
+            const longitude =
+                document.getElementById("longitude").value;
+
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:5000/api/gps",
+                    
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            latitude: Number(latitude),
+                            longitude: Number(longitude)
+                        })
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+                    throw new Error(data.error);
+                }
+
+
+                // Display coordinates
+                document.getElementById(
+                    "displayLatitude"
+                ).textContent = data.latitude;
+
+                document.getElementById(
+                    "displayLongitude"
+                ).textContent = data.longitude;
+
+
+                // Display address
+                document.getElementById(
+                    "address"
+                ).textContent = data.address;
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                document.getElementById(
+                    "address"
+                ).textContent =
+                    "Error: " + error.message;
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
